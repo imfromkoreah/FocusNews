@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: white;
+    }
+
+    .card-slider {
+      display: flex;
+      overflow: visible;
+      width: 90vw;
+      max-width: 350px;
+      padding: 20px;
+      gap: 10px;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      user-select: none;
+    }
+
+    .card-slider::-webkit-scrollbar {
+      display: none;
+    }
+
+    .card {
+      width: 110px;
+      height: 190px;
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid #B0A8A8;
+      position: relative;
+      scroll-snap-align: center;
+      flex-shrink: 0;
+      margin-left: -40px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card.active {
+      transform: translateY(-27px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .inner-card {
+      width: 99.52px;
+      height: 178.12px;
+      position: absolute;
+      left: 5.24px;
+      top: 5.94px;
+      background: #477ED2;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .inner-card img {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      top: 30px;
+    }
+
+    .card-number {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .inner-number {
+      position: absolute;
+      top: 10px;
+      left: 11.76px;
+      font-size: 30px;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  </style>
+</head>
+<body>
+  <div class="card-slider" aria-label="카드 슬라이더">
+    {% for item in news_items %}
+      <div class="card" role="button" tabindex="0" aria-label="카드 {{ loop.index }}" data-unique-link="{{ item }}">
+        <div class="card-number">{{ loop.index }}</div>
+        <div class="inner-card">
+          <!-- 고정된 이미지 경로 -->
+          {% if loop.index == 1 %}
+            <img src="{{ url_for('static', filename='../static/images/img1.png') }}" alt="이미지 1" />
+          {% elif loop.index == 2 %}
+            <img src="{{ url_for('static', filename='../static/images/img2.png') }}" alt="이미지 2" />
+          {% elif loop.index == 3 %}
+            <img src="{{ url_for('static', filename='../static/images/img3.png') }}" alt="이미지 3" />
+          {% elif loop.index == 4 %}
+            <img src="{{ url_for('static', filename='../static/images/img4.png') }}" alt="이미지 4" />
+          {% elif loop.index == 5 %}
+            <img src="{{ url_for('static', filename='../static/images/img5.png') }}" alt="이미지 5" />
+          {% endif %}
+          <div class="inner-number">{{ loop.index }}</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <script>
+    const slider = document.querySelector('.card-slider');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+      isDown = true;
+      slider.classList.add('active');
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    });
+
+    slider.addEventListener('mouseleave', () => {
+      isDown = false;
+      slider.classList.remove('active');
+    });
+
+    slider.addEventListener('mouseup', () => {
+      isDown = false;
+      slider.classList.remove('active');
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 3;
+      slider.scrollLeft = scrollLeft - walk;
+    });
+
+    let selectedCard = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('뉴스 카드 로딩 완료...');
+
+      document.querySelectorAll('.card').forEach((card) => {
+        card.addEventListener('click', () => {
+          //console.log('뉴스 카드 고르는 중...');
+
+          if (selectedCard === card) {
+            const cardHTML = card.outerHTML;
+            const style = document.querySelector('style').innerHTML;
+
+            const uniqueLink = card.getAttribute('data-unique-link');
+
+            parent.postMessage({
+              type: 'cardSelected',
+              cardHTML: cardHTML,
+              style: style,
+              uniqueLink: uniqueLink
+            }, '*');
+
+            selectedCard = null;
+            console.log('뉴스 카드 골랐다!');
+            console.log('전송된 카드:', cardHTML);
+          } else {
+            selectedCard = card;
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+
+            const uniqueLink = card.getAttribute('data-unique-link');
+            console.log('뉴스 카드 고르는 중...... 선택된 pk(unique_link):', uniqueLink);
+          }
+        });
+
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            card.click();
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

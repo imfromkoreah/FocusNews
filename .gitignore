@@ -1,0 +1,7 @@
+# Node.js 관련
+node_modules/
+.env
+
+# 파일 캐쉬 제거
+myapp/__pycache__/
+**/__pycache__/

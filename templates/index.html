@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>포뉴 요약 뉴스</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon_.ico') }}">
+</head>
+<body>
+    <div class="chat-wrapper">
+        <header class="header">
+            <div class="header-left-icons">
+                <img src="{{ url_for('static', filename='svg/btn-home.svg') }}" id="HomeBtn">
+            </div>
+            <div class="header-title">포-뉴📰</div>
+            <div class="header-icons">
+                <img src="{{ url_for('static', filename='svg/btn-more-chatroom.svg') }}" id="ChatBtn">
+                <img src="{{ url_for('static', filename='svg/btn-navigation.svg') }}" id="NaviBtn">
+            </div>
+        </header>
+
+        <div class="chat-container" id="chat">
+            <!-- 봇 메시지들 -->
+            <div id="botMessagesContainer">
+                <div class="message-wrapper">
+                    <div class="profile-container">
+                        <!-- <img src="{{ url_for('static', filename='images/fnew.jpg') }}" alt="프로필 사진" class="profile">
+                        <div class="profile-name">포뉴</div> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- 입력 영역 -->
+        <div class="input-container">
+            <input type="text" placeholder="메시지를 입력하세요" id="chatInput" disabled>
+            <button id="sendButton" onclick="sendMessage(document.getElementById('chatInput').value)">
+                <img src="{{ url_for('static', filename='images/arrow-button.png') }}" alt="전송 버튼" width="24" height="24">
+            </button>
+        </div>
+
+        <!--카드 슬라이드 영역-->
+        <iframe id="cardSlider"  style="display:none;"></iframe>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
