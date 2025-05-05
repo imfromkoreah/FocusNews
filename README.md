@@ -8,7 +8,8 @@
 ---
 
 ### 🔔 레포지토리 소개
-[Uploading 이보경_포뉴 포트폴리오.pdf…]()
+[이보경_포뉴 포트폴리오.pdf](https://github.com/user-attachments/files/20039947/_.pdf)
+
 [포뉴_뉴스요약서비스_발표자료.pptx](https://github.com/user-attachments/files/20039844/_._.pptx)
 
 ---
