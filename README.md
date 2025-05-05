@@ -2,12 +2,12 @@
 
 **짧지만 핵심적인 뉴스가 필요해?"**
 
-짧고 간결한 컨텐츠를 소비하는 사회 흐름에 맞춘 뉴스 요약 챗봇입니다!<br>
+짧고 간결한 컨텐츠를 소비하는 사회 흐름에 맞춘 뉴스 요약 서비스입니다!<br>
 요약된 핵심 뉴스를 전달해 드릴게요!
 
 ---
 
-### 🔔 레포지토리 소개
+### 🔍 서비스 자세히 보기
 [이보경_포뉴 포트폴리오.pdf](https://github.com/user-attachments/files/20039947/_.pdf)
 
 [포뉴_뉴스요약서비스_발표자료.pptx](https://github.com/user-attachments/files/20039844/_._.pptx)
@@ -15,11 +15,17 @@
 ---
 
 ### 🔔 핵심 기술 소개
-#### 	1. 네이버 검색 API를 사용한 뉴스 데이터 크롤링
+#### 1.  Flask와 Python 활용한 RESTful API 백엔드 웹 어플리케이션 개발 
 
-#### 2. OpenAI의 GPT API를 사용한 AI 기반 뉴스 요약 및 분석
+#### 2.  카테고리별/키워드 기반 병렬 웹 크롤링 기능
 
-#### 3. Karlo API를 이용한 미디어 콘텐츠(카드뉴스) 자동화
+#### 3.  Naver API와 OpenAI GPT API를 활용한 뉴스 요약 및 인사이트 생성 
+
+#### 4.  세션을 활용한 사용자 상태 관리 및 데이터 캐싱 기능 구현
+
+#### 5.  JavaScript(ES6+) 활용한 비동기 처리 및 API 연동 
+
+
 
 ---
 
@@ -32,11 +38,10 @@
 
 ### 🖥️ 개발환경
 
-Front : Vue.js<br>
-Back : Flask<br>
-Server : Github Pages
+Front : JavaScript, HTML/CSS <br>
+Back : Flask, Node.js<br>
 
-사용 언어 : Node.js, JS, Python
+사용 언어 : Node.js, Python, JavaScript, HTML/CSS
 
 ---
 ### 사전 작업
